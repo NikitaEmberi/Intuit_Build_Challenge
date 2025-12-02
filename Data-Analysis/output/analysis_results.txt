@@ -1,0 +1,532 @@
+
+================================================================================
+                        SALES DATA ANALYSIS APPLICATION                         
+================================================================================
+
+Assignment: Functional Programming with Data Streams
+Date: 2025-12-02 01:26:01
+Dataset: ../data/sales_data.csv
+
+--------------------------------------------------------------------------------
+                              STEP 1: DATA LOADING                              
+--------------------------------------------------------------------------------
+
+Successfully loaded 2823 rows and 25 columns
+Converted ORDERDATE to datetime
+Converted QUANTITYORDERED to numeric
+Converted PRICEEACH to numeric
+Converted SALES to numeric
+Converted MSRP to numeric
+Converted QTR_ID to numeric
+Converted MONTH_ID to numeric
+Converted YEAR_ID to numeric
+Converted ORDERLINENUMBER to numeric
+Converted ORDERNUMBER to numeric
+Converted STATUS to category
+Converted PRODUCTLINE to category
+Converted COUNTRY to category
+Converted TERRITORY to category
+Converted DEALSIZE to category
+
+--------------------------------------------------------------------------------
+                            STEP 2: DATA VALIDATION                             
+--------------------------------------------------------------------------------
+
+
+======================================================================
+DATA VALIDATION REPORT
+======================================================================
+
+--- Required Columns Check ---
+All 4 required columns present
+
+--- Missing Values Analysis ---
+Found missing values in 4 columns:
+  • ADDRESSLINE2: 2521 (89.30%)
+  • STATE: 1486 (52.64%)
+  • POSTALCODE: 76 (2.69%)
+  • TERRITORY: 1074 (38.04%)
+
+--- Duplicate Records Check ---
+Duplicate records based on ['ORDERNUMBER', 'ORDERLINENUMBER']: 0
+No duplicate records found
+
+--- Negative Values Check ---
+QUANTITYORDERED: No negative values
+PRICEEACH: No negative values
+SALES: No negative values
+All specified columns have non-negative values
+
+--- Date Range Information ---
+ORDERDATE: 2003-01-06 to 2005-05-31
+
+======================================================================
+DATA VALIDATION PASSED
+======================================================================
+
+
+--------------------------------------------------------------------------------
+                              STEP 3: DATA SUMMARY                              
+--------------------------------------------------------------------------------
+
+
+======================================================================
+DATA SUMMARY
+======================================================================
+
+Dataset Shape: 2,823 rows × 25 columns
+
+--- Columns (25) ---
+ 1. ORDERNUMBER                    | Type: int64           | Non-Null: 2,823
+ 2. QUANTITYORDERED                | Type: int64           | Non-Null: 2,823
+ 3. PRICEEACH                      | Type: float64         | Non-Null: 2,823
+ 4. ORDERLINENUMBER                | Type: int64           | Non-Null: 2,823
+ 5. SALES                          | Type: float64         | Non-Null: 2,823
+ 6. ORDERDATE                      | Type: datetime64[ns]  | Non-Null: 2,823
+ 7. STATUS                         | Type: category        | Non-Null: 2,823
+ 8. QTR_ID                         | Type: int64           | Non-Null: 2,823
+ 9. MONTH_ID                       | Type: int64           | Non-Null: 2,823
+10. YEAR_ID                        | Type: int64           | Non-Null: 2,823
+11. PRODUCTLINE                    | Type: category        | Non-Null: 2,823
+12. MSRP                           | Type: int64           | Non-Null: 2,823
+13. PRODUCTCODE                    | Type: object          | Non-Null: 2,823
+14. CUSTOMERNAME                   | Type: object          | Non-Null: 2,823
+15. PHONE                          | Type: object          | Non-Null: 2,823
+16. ADDRESSLINE1                   | Type: object          | Non-Null: 2,823
+17. ADDRESSLINE2                   | Type: object          | Non-Null: 302
+18. CITY                           | Type: object          | Non-Null: 2,823
+19. STATE                          | Type: object          | Non-Null: 1,337
+20. POSTALCODE                     | Type: object          | Non-Null: 2,747
+21. COUNTRY                        | Type: category        | Non-Null: 2,823
+22. TERRITORY                      | Type: category        | Non-Null: 1,749
+23. CONTACTLASTNAME                | Type: object          | Non-Null: 2,823
+24. CONTACTFIRSTNAME               | Type: object          | Non-Null: 2,823
+25. DEALSIZE                       | Type: category        | Non-Null: 2,823
+
+--- First 5 Rows ---
+   ORDERNUMBER  QUANTITYORDERED  PRICEEACH  ORDERLINENUMBER    SALES  ORDERDATE   STATUS  QTR_ID  MONTH_ID  YEAR_ID  PRODUCTLINE  MSRP PRODUCTCODE              CUSTOMERNAME             PHONE                   ADDRESSLINE1 ADDRESSLINE2           CITY STATE POSTALCODE COUNTRY TERRITORY CONTACTLASTNAME CONTACTFIRSTNAME DEALSIZE
+0        10107               30      95.70                2  2871.00 2003-02-24  Shipped       1         2     2003  Motorcycles    95    S10_1678         Land of Toys Inc.        2125557818        897 Long Airport Avenue          NaN            NYC    NY      10022     USA       NaN              Yu             Kwai    Small
+1        10121               34      81.35                5  2765.90 2003-05-07  Shipped       2         5     2003  Motorcycles    95    S10_1678        Reims Collectables        26.47.1555             59 rue de l'Abbaye          NaN          Reims   NaN      51100  France      EMEA         Henriot             Paul    Small
+2        10134               41      94.74                2  3884.34 2003-07-01  Shipped       3         7     2003  Motorcycles    95    S10_1678           Lyon Souveniers  +33 1 46 62 7555  27 rue du Colonel Pierre Avia          NaN          Paris   NaN      75508  France      EMEA        Da Cunha           Daniel   Medium
+3        10145               45      83.26                6  3746.70 2003-08-25  Shipped       3         8     2003  Motorcycles    95    S10_1678         Toys4GrownUps.com        6265557265             78934 Hillside Dr.          NaN       Pasadena    CA      90003     USA       NaN           Young            Julie   Medium
+4        10159               49     100.00               14  5205.27 2003-10-10  Shipped       4        10     2003  Motorcycles    95    S10_1678  Corporate Gift Ideas Co.        6505551386                7734 Strong St.          NaN  San Francisco    CA        NaN     USA       NaN           Brown            Julie   Medium
+
+--- Numeric Column Statistics ---
+        ORDERNUMBER  QUANTITYORDERED    PRICEEACH  ORDERLINENUMBER         SALES       QTR_ID     MONTH_ID     YEAR_ID         MSRP
+count   2823.000000      2823.000000  2823.000000      2823.000000   2823.000000  2823.000000  2823.000000  2823.00000  2823.000000
+mean   10258.725115        35.092809    83.658544         6.466171   3553.889072     2.717676     7.092455  2003.81509   100.715551
+std       92.085478         9.741443    20.174277         4.225841   1841.865106     1.203878     3.656633     0.69967    40.187912
+min    10100.000000         6.000000    26.880000         1.000000    482.130000     1.000000     1.000000  2003.00000    33.000000
+25%    10180.000000        27.000000    68.860000         3.000000   2203.430000     2.000000     4.000000  2003.00000    68.000000
+50%    10262.000000        35.000000    95.700000         6.000000   3184.800000     3.000000     8.000000  2004.00000    99.000000
+75%    10333.500000        43.000000   100.000000         9.000000   4508.000000     4.000000    11.000000  2004.00000   124.000000
+max    10425.000000        97.000000   100.000000        18.000000  14082.800000     4.000000    12.000000  2005.00000   214.000000
+
+--- Categorical Columns (Top 5 Values Each) ---
+
+STATUS:
+STATUS
+Shipped       2617
+Cancelled       60
+Resolved        47
+On Hold         44
+In Process      41
+
+PRODUCTLINE:
+PRODUCTLINE
+Classic Cars        967
+Vintage Cars        607
+Motorcycles         331
+Planes              306
+Trucks and Buses    301
+
+PRODUCTCODE:
+PRODUCTCODE
+S18_3232    52
+S10_1949    28
+S24_1444    28
+S10_4962    28
+S24_2840    28
+
+CUSTOMERNAME:
+CUSTOMERNAME
+Euro Shopping Channel           259
+Mini Gifts Distributors Ltd.    180
+Australian Collectors, Co.       55
+La Rochelle Gifts                53
+AV Stores, Co.                   51
+
+PHONE:
+PHONE
+(91) 555 94 44    259
+4155551450        180
+03 9520 4555       55
+40.67.8555         53
+(171) 555-1555     51
+
+ADDRESSLINE1:
+ADDRESSLINE1
+C/ Moralzarzal, 86              259
+5677 Strong St.                 180
+636 St Kilda Road                55
+67, rue des Cinquante Otages     53
+Fauntleroy Circus                51
+
+ADDRESSLINE2:
+ADDRESSLINE2
+Level 3      55
+Suite 400    48
+Level 6      46
+Level 15     46
+2nd Floor    36
+
+CITY:
+CITY
+Madrid        304
+San Rafael    180
+NYC           152
+Singapore      79
+Paris          70
+
+STATE:
+STATE
+CA          416
+MA          190
+NY          178
+NSW          92
+Victoria     78
+
+POSTALCODE:
+POSTALCODE
+28034    259
+97562    205
+10022    152
+94217     89
+50553     61
+
+COUNTRY:
+COUNTRY
+USA          1004
+Spain         342
+France        314
+Australia     185
+UK            144
+
+TERRITORY:
+TERRITORY
+EMEA     1407
+APAC      221
+Japan     121
+
+CONTACTLASTNAME:
+CONTACTLASTNAME
+Freyre    259
+Nelson    204
+Young     115
+Frick      91
+Brown      88
+
+CONTACTFIRSTNAME:
+CONTACTFIRSTNAME
+Diego      259
+Valarie    257
+Julie      117
+Sue         84
+Michael     84
+
+DEALSIZE:
+DEALSIZE
+Medium    1384
+Small     1282
+Large      157
+
+--- Memory Usage ---
+Total: 1.91 MB
+
+======================================================================
+
+
+--------------------------------------------------------------------------------
+                             STEP 4: DATA CLEANING                              
+--------------------------------------------------------------------------------
+
+Clean dataset prepared: 2,823 rows ready for analysis
+
+--------------------------------------------------------------------------------
+                          STEP 5: INITIALIZE ANALYZER                           
+--------------------------------------------------------------------------------
+
+SalesAnalyzer initialized successfully
+
+--------------------------------------------------------------------------------
+                 STEP 6: FUNCTIONAL PROGRAMMING DEMONSTRATIONS                  
+--------------------------------------------------------------------------------
+
+
+======================================================================
+FUNCTIONAL PROGRAMMING DEMONSTRATIONS
+======================================================================
+
+1. LAMBDA EXPRESSIONS
+----------------------------------------------------------------------
+Total sales above average: $6,167,993.94
+
+2. MAP OPERATIONS
+----------------------------------------------------------------------
+Applied 10% markup transformation using lambda
+   PRICEEACH  PRICE_WITH_MARKUP
+0      95.70            105.270
+1      81.35             89.485
+2      94.74            104.214
+3      83.26             91.586
+4     100.00            110.000
+
+3. MAP-REDUCE PATTERN
+----------------------------------------------------------------------
+Sum of squared sales: 45,228,392,097.71
+
+4. METHOD CHAINING
+----------------------------------------------------------------------
+Top 3 product lines by revenue:
+PRODUCTLINE
+Classic Cars    3919615.66
+Vintage Cars    1903150.84
+Motorcycles     1166388.34
+Name: SALES, dtype: float64
+
+5. HIGHER-ORDER FUNCTIONS (Custom Aggregation)
+----------------------------------------------------------------------
+Coefficient of Variation for SALES: 0.5183
+
+================================================================================
+                           STEP 7: ANALYTICAL QUERIES                           
+================================================================================
+
+
+================================================================================
+                       COMPREHENSIVE SALES DATA ANALYSIS                        
+================================================================================
+
+
+QUERY 1: Basic Aggregation Metrics
+--------------------------------------------------------------------------------
+Total Revenue:                 $10,032,628.85
+Average Order Value:           $3,553.89
+Total Quantity Sold:           99,067 units
+Total Unique Orders:           307
+
+ Insight: Average order value of $3,553.89 across 307 orders
+
+QUERY 2: Revenue by Product Line
+--------------------------------------------------------------------------------
+PRODUCTLINE
+Classic Cars        3919615.66
+Vintage Cars        1903150.84
+Motorcycles         1166388.34
+Trucks and Buses    1127789.84
+Planes               975003.57
+Ships                714437.13
+Trains               226243.47
+
+ Insight: 'Classic Cars' leads with $3,919,615.66 (39.1% of total revenue)
+
+QUERY 3: Sales by Territory
+--------------------------------------------------------------------------------
+EMEA            $4,979,272.41
+APAC            $746,121.83
+Japan           $455,173.22
+
+💡 Insight: EMEA is the top-performing territory
+
+QUERY 4: Top 10 Customers
+--------------------------------------------------------------------------------
+                              total_revenue  order_count  avg_order_value
+CUSTOMERNAME                                                             
+Euro Shopping Channel             912294.11          259      3522.371081
+Mini Gifts Distributors Ltd.      654858.06          180      3638.100333
+Australian Collectors, Co.        200995.41           55      3654.462000
+Muscle Machine Inc                197736.94           48      4119.519583
+La Rochelle Gifts                 180124.90           53      3398.583019
+Dragon Souveniers, Ltd.           172989.68           43      4023.015814
+Land of Toys Inc.                 164069.44           49      3348.355918
+The Sharp Gifts Warehouse         160010.27           40      4000.256750
+AV Stores, Co.                    157807.81           51      3094.270784
+Anna's Decorations, Ltd           153996.13           46      3347.741957
+
+💡 Insight: Top customer 'Euro Shopping Channel' generated $912,294.11 in revenue
+
+QUERY 5: Monthly Sales Trend
+--------------------------------------------------------------------------------
+2003-01         $129,753.60
+2003-02         $140,836.19
+2003-03         $174,504.90
+2003-04         $201,609.55
+2003-05         $192,673.11
+2003-06         $168,082.56
+2003-07         $187,731.88
+2003-08         $197,809.30
+2003-09         $263,973.36
+2003-10         $568,290.97
+2003-11         $1,029,837.66
+2003-12         $261,876.46
+2004-01         $316,577.42
+2004-02         $311,419.53
+2004-03         $205,733.73
+2004-04         $206,148.12
+2004-05         $273,438.39
+2004-06         $286,674.22
+2004-07         $327,144.09
+2004-08         $461,501.27
+2004-09         $320,750.91
+2004-10         $552,924.25
+2004-11         $1,089,048.01
+2004-12         $372,802.66
+2005-01         $339,543.42
+2005-02         $358,186.18
+2005-03         $374,262.76
+2005-04         $261,633.29
+2005-05         $457,861.06
+
+ Insight: Best month: November 2004 ($1,089,048.01)
+Worst month: January 2003 ($129,753.60)
+
+QUERY 6: Deal Size Distribution
+--------------------------------------------------------------------------------
+          total_revenue  avg_sale  transaction_count  unique_orders
+DEALSIZE                                                           
+Large        1302119.26   8293.75                157            119
+Medium       6087432.24   4398.43               1384            292
+Small        2643077.35   2061.68               1282            287
+
+Large: 12.98% of revenue (157 transactions)
+
+Medium: 60.68% of revenue (1,384 transactions)
+
+Small: 26.34% of revenue (1,282 transactions)
+
+QUERY 7: High-Value Transactions (Top 10%)
+--------------------------------------------------------------------------------
+Number of transactions:        283
+Total value:                   $2,120,490.02
+Average value:                 $7,492.90
+Minimum value:                 $6,083.00
+Maximum value:                 $14,082.80
+
+💡 Insight: Top 10% of transactions account for $2,120,490.02 in sales
+
+QUERY 8: Statistical Analysis of Sales
+--------------------------------------------------------------------------------
+Mean:                $3,553.89
+Median:              $3,184.80
+Mode:                $3,003.00
+Std Deviation:       $1,841.87
+Variance:            $3,392,467.07
+Skewness:            1.1611
+Kurtosis:            1.7927
+Min:                 $482.13
+Max:                 $14,082.80
+Range:               $13,600.67
+
+Insight: Sales distribution is positively skewed (right tail)
+
+QUERY 9: Sales Percentile Analysis
+--------------------------------------------------------------------------------
+25th Percentile (Q1):     $2,203.43
+50th Percentile (Median): $3,184.80
+75th Percentile (Q3):     $4,508.00
+90th Percentile:          $6,081.46
+95th Percentile:          $7,108.12
+99th Percentile:          $9,167.10
+
+Interquartile Range:      $2,304.57
+
+Insight: 50% of transactions fall between $2,203.43 and $4,508.00
+
+QUERY 10: Top 10 Products by Performance
+--------------------------------------------------------------------------------
+             SALES_sum  SALES_mean  SALES_count  QUANTITYORDERED_sum
+PRODUCTCODE                                                         
+S18_3232     288245.42     5543.18           52                 1774
+S10_1949     191073.03     6824.04           28                  961
+S10_4698     170401.07     6553.89           26                  921
+S12_1108     168585.32     6484.05           26                  973
+S18_2238     154623.95     5726.81           27                  966
+S12_3891     145332.04     5589.69           26                  921
+S24_3856     140626.90     5208.40           27                 1052
+S12_2823     140006.16     5384.85           26                  964
+S18_1662     139421.97     5362.38           26                  940
+S12_1099     137177.01     5487.08           25                  838
+
+💡 Insight: Product 'S18_3232' is the top performer with $288,245.42 in total sales
+
+QUERY 11: Top 10 Countries by Sales
+--------------------------------------------------------------------------------
+COUNTRY
+USA          3627982.83
+Spain        1215686.92
+France       1110916.52
+Australia     630623.10
+UK            478880.46
+Italy         374674.31
+Finland       329581.91
+Norway        307463.70
+Singapore     288488.41
+Denmark       245637.15
+
+💡 Insight: USA leads with $3,627,982.83
+
+QUERY 12: Sales by Territory and Product Line
+--------------------------------------------------------------------------------
+TERRITORY  PRODUCTLINE     
+EMEA       Classic Cars        2086994.66
+           Vintage Cars         848981.46
+           Motorcycles          503096.70
+           Trucks and Buses     498305.82
+           Planes               476122.91
+           Ships                427264.68
+APAC       Classic Cars         244758.07
+           Vintage Cars         208852.06
+Japan      Classic Cars         181601.49
+EMEA       Trains               138506.18
+APAC       Trucks and Buses     121847.96
+           Motorcycles           89968.76
+           Planes                74853.87
+Japan      Planes                70083.83
+           Trucks and Buses      57847.66
+
+Insight: Multi-dimensional analysis reveals performance patterns across 21 territory-product combinations
+
+QUERY 13: Advanced Filtering (Large Deals > $5000)
+--------------------------------------------------------------------------------
+Total high-value sales:        $3,581,083.00
+Number of transactions:        549
+Percentage of all orders:      19.45%
+
+Insight: 19.45% of orders are high-value (>$$5,000.00)
+
+🔗 QUERY 14: Correlation Analysis
+--------------------------------------------------------------------------------
+Quantity vs Price correlation: 0.0056
+Price vs Sales correlation:    0.6578
+
+Insight: Weak positive correlation between quantity ordered and price
+
+QUERY 15: Custom Aggregation - Coefficient of Variation
+--------------------------------------------------------------------------------
+Coefficient of Variation (Sales):    0.5183
+Coefficient of Variation (Quantity): 0.2776
+
+ Insight: CV of 0.5183 indicates high variability in sales values
+
+================================================================================
+                               ANALYSIS COMPLETE                                
+================================================================================
+
+
+================================================================================
+                               EXECUTION SUMMARY                                
+================================================================================
+
+Total records analyzed: 2,823
+Total queries executed: 15
+Analysis completed successfully
