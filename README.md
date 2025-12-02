@@ -103,8 +103,8 @@ The Data-Analysis project includes inline validation and verification within the
 
 ```bash
 # Clone the repository
-git clone https://github.com/nikitaemberi/Intuit.git
-cd Intuit
+git clone [https://github.com/nikitaemberi/Intuit.git](https://github.com/NikitaEmberi/Intuit_Build_Challenge.git)
+cd Intuit_Build_Challenge
 
 # ============================================
 # Project 1: Data-Analysis
